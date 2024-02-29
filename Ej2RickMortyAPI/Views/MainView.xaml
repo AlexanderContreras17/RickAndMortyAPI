@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Ej2RickMortyAPI.Views.MainView"
+             Title="MainView"
+             xmlns:vm="clr-namespace:Ej2RickMortyAPI.ViewModels" x:Name="MainPage">
+    <ContentPage.BindingContext>
+        <vm:RickMortyViewModel></vm:RickMortyViewModel>
+    </ContentPage.BindingContext>
+
+    <!--<Picker x:Name="Categorias" ItemsSource="{Binding Categories}" SelectedItem="{Binding Category}"></Picker>
+        <Button Text="Generar" Command="{Binding MostrarCommand}"></Button>
+        <Editor IsReadOnly="True" Text="{Binding Joke}"></Editor>-->
+    <ScrollView>
+        <Grid>
+            <!-- Columna izquierda: lista de nombres de personajes -->
+            <CollectionView ItemsSource="{Binding CharacterList}"  HeightRequest="300" WidthRequest="390" HorizontalOptions="Start"
+                  SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <StackLayout >
+                            <FlexLayout Direction="Column" Wrap="Wrap"  >
+
+
+                                <Label Text="{Binding Name}"  Margin="10,0,0,0" VerticalTextAlignment="Center"/>
+                                <Button Command="{Binding Path=BindingContext.MostrarCommand, Source={x:Reference MainPage}}"
+                            CommandParameter="{Binding Id}" Text="Detalles" Margin="10,0,10,0"/>
+
+                            </FlexLayout>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <StackLayout Grid.Column="1" HorizontalOptions="Center" VerticalOptions="Center" BindingContext="{Binding Character}" Margin="50,0,0,0">
+                <Image Source="{Binding Image}" WidthRequest="100" HeightRequest="100" VerticalOptions="Center"/>
+                <Label Text="{Binding Name}" VerticalOptions="Center" HorizontalOptions="Center" />
+                <Label Text="{Binding Status}" VerticalOptions="Center" HorizontalOptions="Center"/>
+                <Label Text="{Binding Species}" VerticalOptions="Center" HorizontalOptions="Center"></Label>
+                <!-- Otros detalles del personaje -->
+            </StackLayout>
+            <Label Text="{Binding Conectividad}"></Label>
+        </Grid>
+    </ScrollView>
+
+</ContentPage>
